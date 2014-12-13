@@ -9,6 +9,20 @@ var routes = require('./routes/index');
 
 var app = express();
 
+// Configurando la Base de Datos MongoDB
+var dbConfig = require(':/db.js');
+var mongoose = require('mongooss');
+
+mongoose.connect(dbConfig.url);
+
+//Configurando Passport
+var passport = require('passport');
+var expressSession = require('express-session');
+
+app.use(expressSession({secret:'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
