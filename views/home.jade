@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	div
+		#user
+			h1.text-center. Welcome #{user.nombre}. Check your details below:
+				div
+					ul
+						li Username ---> #{user.username}
+						li Email    ---> #{user.email}
+						li First Name ---> #{user.nombre} 
+						li Last Name ---> #{user.apellido}
+				a(href='/signout') Sign Out

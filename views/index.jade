@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	div
+		h1.text-center Sign in to our Passport app
+			div
+				img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120')
+				form(action='/login', method='POST')
+					input(type='text', name='username', placeholder='Email',required, autofocus)
+					input(type='password', name='password', placeholder='Password', required)
+					button(class='btn btn-lg', type='submit') Sign in
+					span.clearfix
+			a(href='/signup') Create an account
+			#message
+			if message
+				h1.text-center.error-message #{message}

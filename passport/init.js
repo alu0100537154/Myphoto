@@ -16,4 +16,7 @@ module.exports = function(passport){
        done(err, user);
      });
    });
+  
+  login(passport);
+  signup(passport);
 }

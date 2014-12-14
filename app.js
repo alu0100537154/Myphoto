@@ -5,23 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-
 var app = express();
-
-// Configurando la Base de Datos MongoDB
-var dbConfig = require(':/db.js');
-var mongoose = require('mongooss');
-
-mongoose.connect(dbConfig.url);
-
-//Configurando Passport
-var passport = require('passport');
-var expressSession = require('express-session');
-
-app.use(expressSession({secret:'mySecretKey'}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +19,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Configurando la Base de Datos MongoDB
+var dbConfig = require('./db.js');
+var mongoose = require('mongoose');
+
+mongoose.connect(dbConfig.url);
+
+//Configurando Passport
+var passport = require('passport');
+var expressSession = require('express-session');
+
+app.use(expressSession({secret:'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+var flash = require('connect-flash');
+app.use(flash());
+
+// Inicializando Passport
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+var routes = require('./routes/index')(passport);
 app.use('/', routes);
 
 // catch 404 and forward to error handler

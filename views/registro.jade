@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	div
+		h1.text-center Registration Details
+			div
+				form(action='/signup', method='POST')
+						input(type='text', name='username', placeholder='Username',required, autofocus)
+						input(type='password', name='password', placeholder='Password', required)
+						input(type='email', name='email', placeholder='Email',required)
+						input(type='text', name='nombre', placeholder='First Name',required)
+						input(type='text', name='apellido', placeholder='Last Name',required)
+						button(type='submit') Registrarse
+						span.clearfix
+					#message
+						if message
+							h1.text-center.error-message #{message}
+
